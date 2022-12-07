@@ -1,13 +1,10 @@
 package utilities;
 
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.*;
 
 public class ExcelUtility {
 
@@ -54,5 +51,37 @@ public class ExcelUtility {
 
     public int getHeaderRow(){
         return this.headerRow;
+    }
+
+    public String getData(int rowNo, int cellNo){
+        Row rw = this.sh.getRow(rowNo);
+        Cell cl = rw.getCell(cellNo);
+        FormulaEvaluator fe = this.wb.getCreationHelper().createFormulaEvaluator();
+        return new DataFormatter().formatCellValue(cl, fe);
+    }
+
+    public void getRowData(int rowNum){
+        if(isRowEmpty(rowNum)){
+            System.out.println("Invalid row sent");
+            return;
+        }
+        Row hRow = this.sh.getRow(this.headerRow);
+        int lastCellNum = hRow.getLastCellNum();
+        List<String> hRowDataList = new ArrayList<>();
+        List<String> cRowDataList = new ArrayList<>();
+        for(int i = 0; i<lastCellNum; i++){
+            hRowDataList.add(getData(this.headerRow, i));
+            cRowDataList.add(getData(rowNum, i));
+        }
+        Map<String, String> dataMap = new LinkedHashMap<>();
+        for(int i = 0; i<lastCellNum; i++){
+            dataMap.put(hRowDataList.get(i), cRowDataList.get(i));
+        }
+        System.out.println(dataMap);
+    }
+
+    public boolean isRowEmpty(int rowNum){
+        Row rw = this.sh.getRow(rowNum);
+        return rw == null ? true : false;
     }
 }
