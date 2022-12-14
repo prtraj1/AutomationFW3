@@ -44,9 +44,14 @@ public class DummyClass {
 
 //        System.out.println(exc1.isRowEmpty(7));
 
-        ExcelUtility exc2 = new ExcelUtility("assets/data.xlsx", 0);
+//        ExcelUtility exc2 = new ExcelUtility("assets/data.xlsx", 0);
 //        System.out.println(exc2.getRowNumbersInColumnHavingText("pwd1234", 2));
-        System.out.println(exc2.getColNumbersInRowHavingText("Username", 5));
+//        System.out.println(exc2.getColNumbersInRowHavingText("Username", 5));
 
+        String[][] data = new String[10][1];
+        data[0][0] = "something";
+        data[0][1] = "new";
+
+        List<Integer> nums = Arrays.asList(2,3);
     }
 }
