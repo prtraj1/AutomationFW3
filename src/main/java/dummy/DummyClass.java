@@ -31,13 +31,22 @@ public class DummyClass {
 //        Set<Integer> numsB = new HashSet<>(numsA);
 //        System.out.println(numsB);
 
-        exc1.getRowData(8);
+//        System.out.println(exc1.getRowData(1));
 
 //        if(!false){
 //            System.out.println("Inside if");
 //        }else{
 //            System.out.println("Inside else");
 //        }
+
+//        String text = "     ";
+//        System.out.println(text.length());
+
+//        System.out.println(exc1.isRowEmpty(7));
+
+        ExcelUtility exc2 = new ExcelUtility("assets/data.xlsx", 0);
+//        System.out.println(exc2.getRowNumbersInColumnHavingText("pwd1234", 2));
+        System.out.println(exc2.getColNumbersInRowHavingText("Username", 5));
 
     }
 }
