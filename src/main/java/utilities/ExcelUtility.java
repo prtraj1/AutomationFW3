@@ -85,6 +85,8 @@ public class ExcelUtility {
 //            cRowDataList.add(getData(rowNum, i));
 //        }
         for(int i = 0; i<lastCellNum; i++){
+            if(dataMap.containsKey(getData(this.headerRow, i)))
+                continue;
             dataMap.put(getData(this.headerRow, i), getData(rowNum, i));
         }
         return dataMap;
