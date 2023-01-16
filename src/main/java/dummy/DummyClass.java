@@ -2,8 +2,11 @@ package dummy;
 
 import org.checkerframework.checker.units.qual.C;
 import utilities.ExcelUtility;
+import utilities.Props;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.*;
 
 public class DummyClass {
@@ -89,13 +92,36 @@ public class DummyClass {
 //        }
 
 
-        Map<String, String> testMap = new HashMap<>();
-        testMap.put("Name", "Sadia");
-        if(!testMap.containsKey("Name"))
-            testMap.put("Name", "Nasim");
-        System.out.println(testMap.containsKey("Name"));
-        System.out.println(testMap.get("Name"));
+//        Map<String, String> testMap = new HashMap<>();
+//        testMap.put("Name", "Sadia");
+//        if(!testMap.containsKey("Name"))
+//            testMap.put("Name", "Nasim");
+//        System.out.println(testMap.containsKey("Name"));
+//        System.out.println(testMap.get("Name"));
 
+        File file = new File("assets/config.properties");
+        File file2 = new File("assets/report.properties");
+
+//        Properties prop = new Properties();
+//        try {
+//            prop.load(new FileInputStream(file));
+//            System.out.println(prop.get("browser"));
+//            System.out.println(prop.get("something"));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        Properties prop1 = new Properties();
+//        try {
+//            prop.load(new FileInputStream(file));
+//            System.out.println(prop.get("browser"));
+//            System.out.println(prop.get("something"));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        Props props = new Props(file2);
+        System.out.println(props.getKey("address"));
 
 
     }

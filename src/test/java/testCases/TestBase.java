@@ -1,6 +1,7 @@
 package testCases;
 
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 import utilities.ExcelUtility;
 
@@ -82,6 +83,16 @@ public class TestBase {
     @Test(groups = {"regression"})
     public void TC_007(){
         System.out.println("regression");
+    }
+
+    @BeforeTest
+    public void beforeTest(ITestContext itc){
+        System.out.println("Before test- "+itc.getName());
+    }
+
+    @BeforeSuite
+    public void beforeSuite(ITestContext itc){
+        System.out.println("Before suite- "+itc.getSuite().getName());
     }
 
 

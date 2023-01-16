@@ -15,12 +15,12 @@
         </classes>
     </test>
     <!---->
-    <test name="Nopackage 2" >
-        <parameter name="browser" value="firefox"></parameter>
-        <classes>
-            <class name="testCases.TestBase" ></class>
-        </classes>
-    </test>
+<!--    <test name="Nopackage 2" >-->
+<!--        <parameter name="browser" value="firefox"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="testCases.TestBase" ></class>-->
+<!--        </classes>-->
+<!--    </test>-->
     <!---->
     <test name="NoPackage 3" >
         <parameter name="browser" value="edge"></parameter>
