@@ -18,4 +18,5 @@ public class HomePage {
     public String getPageTitle() {
         return act.doGetText(pageTitle);
     }
+
 }

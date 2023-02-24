@@ -19,4 +19,11 @@ public class LoginTest extends TestPrime{
         String pageTitle = hp.getPageTitle();
         Assert.assertEquals(pageTitle, data.get("PageTitle"));
     }
+
+    @Test(dataProvider = "myData")
+    public void TC_005(Map<String, String> data){
+        LoginPage lp = new LoginPage(driver);
+        lp.login(data.get("Username"), data.get("Password"));
+        Assert.assertTrue(lp.validateErrorMsg(data.get("ErrorMsg")), "Error message is not displayed!");
+    }
 }

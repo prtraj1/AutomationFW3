@@ -120,8 +120,25 @@ public class DummyClass {
 //            throw new RuntimeException(e);
 //        }
 
-        Props props = new Props(file2);
-        System.out.println(props.getKey("address"));
+//        Props props = new Props(file2);
+//        System.out.println(props.getKey("address"));
+
+        String text = "You know Howrah is a very beautiful city. I live and study in HoWrah . I study at HowraH Public School.";
+        String[] words = text.split(" ");
+        String wordToCheck = "HoWrah";
+        System.out.println(Arrays.toString(words));
+        Map<String, Integer> wordsCounter = new LinkedHashMap<>();
+
+        for(int i=0; i< words.length; i++){
+            if(wordToCheck.equalsIgnoreCase(words[i])){
+                if(wordsCounter.containsKey(words[i].toLowerCase())){
+                    wordsCounter.put(words[i].toLowerCase(), wordsCounter.get(words[i].toLowerCase()) + 1);
+                }else
+                    wordsCounter.put(words[i].toLowerCase(), 1);
+            }
+        }
+
+        System.out.println(wordsCounter);
 
 
     }
