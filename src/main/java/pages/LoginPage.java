@@ -9,6 +9,8 @@ public class LoginPage {
     By usernameTextBox = By.id("user-name");
     By pwdTxtBox = By.id("password");
     By loginBtn = By.id("login-button");
+
+    By errorMsg = By.cssSelector(".bot_column");
     private WebDriver driver;
     private WebActions act;
     public LoginPage(WebDriver driver) {
@@ -20,5 +22,9 @@ public class LoginPage {
         act.doEnterText(usernameTextBox, userName);
         act.doEnterText(pwdTxtBox, password);
         act.doClick(loginBtn);
+    }
+
+    public boolean validateErrorMsg(String msg){
+        return msg.equals(act.doGetText(errorMsg));
     }
 }
