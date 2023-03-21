@@ -8,8 +8,8 @@
                 <parameter name="theater" value="opera"></parameter>
                 <parameter name="city" value="venice"></parameter>
                 <methods>
-<!--                    <include name="TC_001"/>-->
-<!--                    <include name="TC_002"/>-->
+                    <include name="TC_001"/>
+                    <include name="TC_002"/>
                     <include name="TC_003"></include>
                 </methods>
             </class>

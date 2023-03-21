@@ -1,14 +1,17 @@
 package testCases;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
+import utilities.BrowserFactory;
 import utilities.ExcelUtility;
+import utilities.ExtentTestUtility;
 import utilities.Props;
 
 import java.io.File;
@@ -20,32 +23,61 @@ public class TestPrime {
 
     WebDriver driver;
 
+    ExtentSparkReporter reporter;
+    ExtentReports extentReports;
+    ExtentTest extentTest;
+
+    @BeforeSuite
+    public void setUpReport(){
+        reporter = new ExtentSparkReporter(new File("report/AutomationReport.html"));
+        extentReports = new ExtentReports();
+        extentReports.attachReporter(reporter);
+    }
+
+    @AfterSuite
+    public void endReport(){
+        extentReports.flush();
+    }
+
     public TestPrime(){}
 
     @BeforeMethod
-    public void setUp(){
+    public void setUp(Method m){
+//        extentTest = extentReports.createTest(m.getName());
+        //Sets ExtentTest object into a thread using ExtentTestUtility
+        //We are sending a car of company ExtentTest and on the driver seat putting test method's name
+        ExtentTestUtility.setExtentTest(extentReports.createTest(m.getName()));
         File file = new File("assets/config.properties");
         Props props = new Props(file);
         String browserName = props.getKey("browser");
-        if(browserName.equalsIgnoreCase("firefox"))
-            driver = new FirefoxDriver();
+        if(browserName.equalsIgnoreCase("firefox")) {
+//            driver = new FirefoxDriver();
+            BrowserFactory.setDriver(new FirefoxDriver());
+            driver = BrowserFactory.getDriver();
+        }
         else
         {
             ChromeOptions crOptions = new ChromeOptions();
             crOptions.addArguments("--remote-allow-origins=*");
-            driver = new ChromeDriver(crOptions);
+//            driver = new ChromeDriver(crOptions);
+            BrowserFactory.setDriver(new ChromeDriver(crOptions));
+            driver = BrowserFactory.getDriver();
         }
-        driver.get(props.getKey("url"));
-        driver.manage().window().maximize();
+        BrowserFactory.getDriver().get(props.getKey("url"));
+        BrowserFactory.getDriver().manage().window().maximize();
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown(ITestResult itr){
         System.out.println("After method");
-        driver.quit();
+        BrowserFactory.getDriver().quit();
+        if(itr.getStatus() == 1)
+            ExtentTestUtility.getExtentTest().pass("Test Passed");
+        else
+            ExtentTestUtility.getExtentTest().fail("Test Failed");
     }
 
-    @DataProvider(name = "myData")
+    @DataProvider(name = "myData", parallel = true)
     public Object[][] getData(Method m){
         String colName = "Test Case ID";
         System.out.println(m.getName());
