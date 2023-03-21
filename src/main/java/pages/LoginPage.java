@@ -10,7 +10,7 @@ public class LoginPage {
     By pwdTxtBox = By.id("password");
     By loginBtn = By.id("login-button");
 
-    By errorMsg = By.cssSelector(".bot_column");
+    By errorMsg = By.xpath("//h3[@data-test=\"error\"]");
     private WebDriver driver;
     private WebActions act;
     public LoginPage(WebDriver driver) {

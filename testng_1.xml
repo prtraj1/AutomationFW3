@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="SauceTests" verbose="1">
+    <test name="RandomTest" parallel="methods" thread-count="10">
+        <classes>
+            <class name="testCases.LoginTest">
+            </class>
+        </classes>
+    </test>
+</suite>
