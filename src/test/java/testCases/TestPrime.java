@@ -1,8 +1,9 @@
 package testCases;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -27,13 +28,16 @@ public class TestPrime {
         Props props = new Props(file);
         String browserName = props.getKey("browser");
         if(browserName.equalsIgnoreCase("firefox"))
-            driver = WebDriverManager.firefoxdriver().create();
+            driver = new FirefoxDriver();
         else
-            driver = WebDriverManager.chromedriver().create();
+        {
+            ChromeOptions crOptions = new ChromeOptions();
+            crOptions.addArguments("--remote-allow-origins=*");
+            driver = new ChromeDriver(crOptions);
+        }
         driver.get(props.getKey("url"));
         driver.manage().window().maximize();
     }
-
 
     @AfterMethod
     public void tearDown(){
@@ -50,9 +54,9 @@ public class TestPrime {
         List<Integer> colNumbers = exc.getColNumbersInRowHavingText(colName, exc.getHeaderRow());
         System.out.println(colNumbers);
 
-        List<Integer> rowNums = exc.getRowNumbersInColumnHavingText(m.getName(), colNumbers.get(0));
+        List<Integer> rowNums = exc.getRowNumbersInColumnHavingText(m.getName(), colNumbers.get(0)); //why column zero? - multiple data for different login for example
         System.out.println(rowNums);
-        Object[][] data = new Object[rowNums.size()][1];
+        Object[][] data = new Object[rowNums.size()][1]; //here column size 1 meaning 0,1? but why 2 and why 1? i think only 1
         for(int i = 0; i< rowNums.size(); i++){
             data[i][0] = exc.getRowData(rowNums.get(i));
         }

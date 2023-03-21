@@ -50,11 +50,12 @@ public class TestBase {
         System.out.println(data.get("Password"));
     }
 
-    @Parameters({"theater", "city"})
+    @Parameters({"theater", "city", "browser"})
     @Test
-    public void TC_003(String theater, String city){
+    public void TC_003(String theater, String city, String browser){
         System.out.println(theater);
         System.out.println(city);
+        System.out.println(browser);
     }
 
     @Parameters({"theater", "city"})
@@ -64,10 +65,13 @@ public class TestBase {
         System.out.println(city);
     }
 
-    @Parameters({"browser"})
+    @Parameters({"browser", "theater", "city"})
     @BeforeMethod
-    public void setUp(String browser){
+    public void setUp(String browser, String theater, String city){
+        System.out.println("Inside before method");
         System.out.println(browser);
+        System.out.println(theater);
+        System.out.println(city);
     }
 
     @Test(groups = {"smoke", "regression"})

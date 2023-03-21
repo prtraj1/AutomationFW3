@@ -8,8 +8,9 @@
                 <parameter name="theater" value="opera"></parameter>
                 <parameter name="city" value="venice"></parameter>
                 <methods>
-                    <include name="TC_004"/>
-                    <include name="TC_002"/>
+<!--                    <include name="TC_001"/>-->
+<!--                    <include name="TC_002"/>-->
+                    <include name="TC_003"></include>
                 </methods>
             </class>
         </classes>
@@ -22,15 +23,16 @@
 <!--        </classes>-->
 <!--    </test>-->
     <!---->
-    <test name="NoPackage 3" >
-        <parameter name="browser" value="edge"></parameter>
-        <groups>
-            <run>
-                <exclude name="regression" />
-            </run>
-        </groups>
-        <classes>
-            <class name="testCases.TestBase" ></class>
-        </classes>
-    </test>
+<!--    <test name="NoPackage 3" >-->
+<!--        <parameter name="browser" value="edge"></parameter>-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <exclude name="regression" />-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name="testCases.TestBase" ></class>-->
+
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
