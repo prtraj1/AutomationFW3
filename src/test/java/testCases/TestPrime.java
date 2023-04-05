@@ -2,6 +2,8 @@ package testCases;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,10 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import utilities.BrowserFactory;
-import utilities.ExcelUtility;
-import utilities.ExtentTestUtility;
-import utilities.Props;
+import utilities.*;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -30,6 +29,7 @@ public class TestPrime {
     @BeforeSuite
     public void setUpReport(){
         reporter = new ExtentSparkReporter(new File("report/AutomationReport.html"));
+        reporter.config().thumbnailForBase64(true);
         extentReports = new ExtentReports();
         extentReports.attachReporter(reporter);
     }
@@ -70,11 +70,11 @@ public class TestPrime {
     @AfterMethod
     public void tearDown(ITestResult itr){
         System.out.println("After method");
-        BrowserFactory.getDriver().quit();
         if(itr.getStatus() == 1)
             ExtentTestUtility.getExtentTest().pass("Test Passed");
         else
-            ExtentTestUtility.getExtentTest().fail("Test Failed");
+            ExtentTestUtility.getExtentTest().fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromBase64String(new WebActions(BrowserFactory.getDriver()).takeBase64Screenshot()).build());
+        BrowserFactory.getDriver().quit();
     }
 
     @DataProvider(name = "myData", parallel = true)
