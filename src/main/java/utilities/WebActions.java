@@ -1,5 +1,7 @@
 package utilities;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -31,12 +33,14 @@ public class WebActions {
         int currentRetryCnt = 0;
         while (true){
             if(currentRetryCnt > maxRetryCount){
-                ExtentTestUtility.getExtentTest().fail("Unable to perform click operation on element- "+element);
+//                ExtentTestUtility.getExtentTest().fail("Unable to perform click operation on element- "+element);
+                ExtentLog.log(Status.FAIL, "Unable to perform click operation on element- "+element);
                 throw new RuntimeException("Unable to perform click operation on element- "+element);
             }
             try {
                 wait.until(ExpectedConditions.presenceOfElementLocated(element)).click();
-                ExtentTestUtility.getExtentTest().pass("Clicked element- "+element);
+//                ExtentTestUtility.getExtentTest().pass("Clicked element- "+element);
+                ExtentLog.log(Status.PASS, "Clicked element- "+element);
                 break;
             } catch (Exception e){
                 currentRetryCnt ++;
@@ -48,12 +52,14 @@ public class WebActions {
         int currentRetryCnt = 0;
         while (true){
             if(currentRetryCnt > maxRetryCount){
-                ExtentTestUtility.getExtentTest().fail("Failed entering text '"+text+"' in the element- "+element);
+//                ExtentTestUtility.getExtentTest().fail("Failed entering text '"+text+"' in the element- "+element);
+                ExtentLog.log(Status.FAIL, "Failed entering text '"+text+"' in the element- "+element);
                 throw new RuntimeException("Unable to perform enter text operation on element- "+element);
             }
             try {
                 wait.until(ExpectedConditions.presenceOfElementLocated(element)).sendKeys(text);
-                ExtentTestUtility.getExtentTest().pass("Entered text '"+text+"' in the element- "+element);
+//                ExtentTestUtility.getExtentTest().pass("Entered text '"+text+"' in the element- "+element);
+                ExtentLog.log(Status.PASS, "Entered text '"+text+"' in the element- "+element);
                 break;
             } catch (Exception e){
                 currentRetryCnt ++;
@@ -66,12 +72,14 @@ public class WebActions {
         String text = "";
         while (true){
             if(currentRetryCnt > maxRetryCount){
-                ExtentTestUtility.getExtentTest().fail("Unable to perform get text operation on element- "+element);
+//                ExtentTestUtility.getExtentTest().fail("Unable to perform get text operation on element- "+element);
+                ExtentLog.log(Status.FAIL, "Unable to perform get text operation on element- "+element);
                 throw new RuntimeException("Unable to perform get text operation on element- "+element);
             }
             try {
                 text = wait.until(ExpectedConditions.presenceOfElementLocated(element)).getText();
-                ExtentTestUtility.getExtentTest().pass("Fetched '"+text+"' from element- "+element);
+//                ExtentTestUtility.getExtentTest().pass("Fetched '"+text+"' from element- "+element);
+                ExtentLog.log(Status.PASS, "Fetched '"+text+"' from element- "+element);
                 break;
             } catch (Exception e){
                 currentRetryCnt ++;
@@ -87,7 +95,8 @@ public class WebActions {
         try {
             FileUtils.copyFile(file, new File(filePath));
         } catch (IOException e) {
-            ExtentTestUtility.getExtentTest().info("Unable to take screenshot!");
+//            ExtentTestUtility.getExtentTest().info("Unable to take screenshot!");
+            ExtentLog.log(Status.INFO, "Unable to take screenshot!");
             throw new RuntimeException(e);
         }
         return filePath;

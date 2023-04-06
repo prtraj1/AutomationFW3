@@ -1,5 +1,5 @@
 Login with valid creds (TC_004)
-Login with invalid creds
+Login with invalid creds (TC_005)
 Verify logout functionality
 Validate add to cart button visible in all products
 Validate all products have been set with a price tag
