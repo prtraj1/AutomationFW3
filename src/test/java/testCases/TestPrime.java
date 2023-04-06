@@ -43,13 +43,15 @@ public class TestPrime {
 
     @BeforeMethod
     public void setUp(Method m){
+        ExtentLog.log(Status.INFO, "Starting test-"+m.getName());
 //        extentTest = extentReports.createTest(m.getName());
         //Sets ExtentTest object into a thread using ExtentTestUtility
         //We are sending a car of company ExtentTest and on the driver seat putting test method's name
         ExtentTestUtility.setExtentTest(extentReports.createTest(m.getName()));
-        File file = new File("assets/config.properties");
-        Props props = new Props(file);
-        String browserName = props.getKey("browser");
+//        File file = new File("assets/config.properties");
+//        Props props = new Props(file);
+//        String browserName = props.getKey("browser");
+        String browserName = GlobalProperties.getProperty("browser");
         if(browserName.equalsIgnoreCase("firefox")) {
 //            driver = new FirefoxDriver();
             BrowserFactory.setDriver(new FirefoxDriver());
@@ -63,7 +65,7 @@ public class TestPrime {
             BrowserFactory.setDriver(new ChromeDriver(crOptions));
             driver = BrowserFactory.getDriver();
         }
-        BrowserFactory.getDriver().get(props.getKey("url"));
+        BrowserFactory.getDriver().get(GlobalProperties.getProperty("url"));
         BrowserFactory.getDriver().manage().window().maximize();
     }
 
