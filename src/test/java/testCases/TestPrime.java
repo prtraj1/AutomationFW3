@@ -82,8 +82,10 @@ public class TestPrime {
           //  ExtentTestUtility.getExtentTest().fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromBase64String(new WebActions(BrowserFactory.getDriver()).takeBase64Screenshot()).build());
             ExtentLog.log(Status.FAIL, "Test Failed");
           //  ExtentLog.log(Status.INFO, Arrays.toString(Thread.currentThread().getStackTrace())); // need to ecplore
+            ExtentLog.log(Status.FAIL, itr.getThrowable().toString());
+//            ExtentTestUtility.getExtentTest().fail(itr.getThrowable());
         }
-        //BrowserFactory.getDriver().quit();
+        BrowserFactory.getDriver().quit();
     }
 
     @DataProvider(name = "myData", parallel = true)
