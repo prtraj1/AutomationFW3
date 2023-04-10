@@ -15,8 +15,10 @@ import utilities.*;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class TestPrime {
 
@@ -72,11 +74,16 @@ public class TestPrime {
     @AfterMethod
     public void tearDown(ITestResult itr){
         System.out.println("After method");
-        if(itr.getStatus() == 1)
-            ExtentTestUtility.getExtentTest().pass("Test Passed");
-        else
-            ExtentTestUtility.getExtentTest().fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromBase64String(new WebActions(BrowserFactory.getDriver()).takeBase64Screenshot()).build());
-        BrowserFactory.getDriver().quit();
+        if(itr.getStatus() == 1) {
+            //  ExtentTestUtility.getExtentTest().pass("Test Passed");
+            ExtentLog.log(Status.PASS, "Test Passed");
+        }
+        else {
+          //  ExtentTestUtility.getExtentTest().fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromBase64String(new WebActions(BrowserFactory.getDriver()).takeBase64Screenshot()).build());
+            ExtentLog.log(Status.FAIL, "Test Failed");
+          //  ExtentLog.log(Status.INFO, Arrays.toString(Thread.currentThread().getStackTrace())); // need to ecplore
+        }
+        //BrowserFactory.getDriver().quit();
     }
 
     @DataProvider(name = "myData", parallel = true)

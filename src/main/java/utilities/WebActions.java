@@ -3,11 +3,9 @@ package utilities;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -15,6 +13,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class WebActions {
 
@@ -27,9 +26,10 @@ public class WebActions {
     public WebActions(WebDriver driver){
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     }
 
-    public void doClick(By element){
+    public void doClick(By element){ //Explain this line
         int currentRetryCnt = 0;
         while (true){
             if(currentRetryCnt > maxRetryCount){
@@ -106,5 +106,60 @@ public class WebActions {
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
     }
 
+    public List<WebElement> validateList(By elements){
+        int currentRetryCnt = 0;
+        while(true){
+            if(currentRetryCnt>maxRetryCount){
+                ExtentLog.log(Status.FAIL, "Unable to find list of: "+elements);
+                throw new RuntimeException("Unable to fetch the list: " +elements);
+            }
+            try {
+                wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(elements));
+                List<WebElement> elm = driver.findElements(elements);
+                ExtentLog.log(Status.PASS, "Fetched the list");
+                return elm;
+            }
+            catch (Exception e)
+            {
+               currentRetryCnt++;
+            }
+        }
+    }
+
+    public void selectByValue(By element, String value){
+        int currentRetryCnt = 0;
+        while (true){
+            if(currentRetryCnt > maxRetryCount){
+//                ExtentTestUtility.getExtentTest().fail("Failed entering text '"+text+"' in the element- "+element);
+                ExtentLog.log(Status.FAIL, "Failed selecting value in the element- "+element);
+                throw new RuntimeException("Unable to perform select operation on the element- "+element);
+            }
+            try {
+                new Select(wait.until(ExpectedConditions.presenceOfElementLocated(element))).selectByValue(value);
+                ExtentLog.log(Status.PASS, "Selected value: " +value + " in the drop down- " +element);
+                break;
+            } catch (Exception e){
+                currentRetryCnt ++;
+            }
+        }
+    }
+
+    public void selectByText(By element, String value){
+        int currentRetryCnt = 0;
+        while (true){
+            if(currentRetryCnt > maxRetryCount){
+//                ExtentTestUtility.getExtentTest().fail("Failed entering text '"+text+"' in the element- "+element);
+                ExtentLog.log(Status.FAIL, "Failed selecting value in the element- "+element);
+                throw new RuntimeException("Unable to perform select operation on the element- "+element);
+            }
+            try {
+                new Select(wait.until(ExpectedConditions.presenceOfElementLocated(element))).selectByVisibleText(value);
+                ExtentLog.log(Status.PASS, "Selected value: " +value + " in the drop down- " +element);
+                break;
+            } catch (Exception e){
+                currentRetryCnt ++;
+            }
+        }
+    }
 
 }
