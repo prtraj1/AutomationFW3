@@ -1,7 +1,10 @@
 package dummy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.checkerframework.checker.units.qual.C;
 import utilities.ExcelUtility;
+import utilities.LogMessage;
 import utilities.Props;
 
 import java.io.File;
@@ -12,10 +15,10 @@ import java.util.*;
 public class DummyClass {
 
     public static void main(String[] args) {
-        String location = "assets/Runner.xlsx";
-        File rnLocation = new File(location);
-
-        ExcelUtility exc1 = new ExcelUtility(location, "Sheet1");
+//        String location = "assets/Runner.xlsx";
+//        File rnLocation = new File(location);
+//
+//        ExcelUtility exc1 = new ExcelUtility(location, "Sheet1");
 //        System.out.println(exc1.getHeaderRow());
 //        exc1.setHeaderRow(3);
 //        System.out.println(exc1.getHeaderRow());
@@ -99,8 +102,8 @@ public class DummyClass {
 //        System.out.println(testMap.containsKey("Name"));
 //        System.out.println(testMap.get("Name"));
 
-        File file = new File("assets/config.properties");
-        File file2 = new File("assets/report.properties");
+//        File file = new File("assets/config.properties");
+//        File file2 = new File("assets/report.properties");
 
 //        Properties prop = new Properties();
 //        try {
@@ -123,23 +126,28 @@ public class DummyClass {
 //        Props props = new Props(file2);
 //        System.out.println(props.getKey("address"));
 
-        String text = "You know Howrah is a very beautiful city. I live and study in HoWrah . I study at HowraH Public School.";
-        String[] words = text.split(" ");
-        String wordToCheck = "HoWrah";
-        System.out.println(Arrays.toString(words));
-        Map<String, Integer> wordsCounter = new LinkedHashMap<>();
+//        String text = "You know Howrah is a very beautiful city. I live and study in HoWrah . I study at HowraH Public School.";
+//        String[] words = text.split(" ");
+//        String wordToCheck = "HoWrah";
+//        System.out.println(Arrays.toString(words));
+//        Map<String, Integer> wordsCounter = new LinkedHashMap<>();
+//
+//        for(int i=0; i< words.length; i++){
+//            if(wordToCheck.equalsIgnoreCase(words[i])){
+//                if(wordsCounter.containsKey(words[i].toLowerCase())){
+//                    wordsCounter.put(words[i].toLowerCase(), wordsCounter.get(words[i].toLowerCase()) + 1);
+//                }else
+//                    wordsCounter.put(words[i].toLowerCase(), 1);
+//            }
+//        }
+//
+//        System.out.println(wordsCounter);
 
-        for(int i=0; i< words.length; i++){
-            if(wordToCheck.equalsIgnoreCase(words[i])){
-                if(wordsCounter.containsKey(words[i].toLowerCase())){
-                    wordsCounter.put(words[i].toLowerCase(), wordsCounter.get(words[i].toLowerCase()) + 1);
-                }else
-                    wordsCounter.put(words[i].toLowerCase(), 1);
-            }
-        }
+//        Logger log = LogManager.getLogger(DummyClass.class);
+//        log.info("This is a log");
 
-        System.out.println(wordsCounter);
-
-
+        LogMessage.info("I am from Sparta");
+        LogMessage.warn("I am a warning");
+        LogMessage.error("I am an error");
     }
 }
