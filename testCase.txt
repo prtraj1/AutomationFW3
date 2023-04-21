@@ -3,9 +3,9 @@ Login with invalid creds (TC_005)
 Verify logout functionality (TC_006)
 Validate add to cart button visible in all products (TC_007)
 Validate all products have been set with a price tag (TC_008)
-Verify filter functionality by name ascending
+Verify filter functionality by name ascending (TC_009)
 Verify filter functionality by price ascending
-Verify filter functionality by name descending
+Verify filter functionality by name descending (TC_010)
 Verify filter functionality by price descending
 Verify add to cart functionality
 Verify remove from cart functionality

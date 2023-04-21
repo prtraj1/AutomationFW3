@@ -52,13 +52,11 @@ public class WebActions {
         int currentRetryCnt = 0;
         while (true){
             if(currentRetryCnt > maxRetryCount){
-//                ExtentTestUtility.getExtentTest().fail("Failed entering text '"+text+"' in the element- "+element);
                 ExtentLog.log(Status.FAIL, "Failed entering text '"+text+"' in the element- "+element);
                 throw new RuntimeException("Unable to perform enter text operation on element- "+element);
             }
             try {
                 wait.until(ExpectedConditions.presenceOfElementLocated(element)).sendKeys(text);
-//                ExtentTestUtility.getExtentTest().pass("Entered text '"+text+"' in the element- "+element);
                 ExtentLog.log(Status.PASS, "Entered text '"+text+"' in the element- "+element);
                 break;
             } catch (Exception e){
@@ -72,13 +70,11 @@ public class WebActions {
         String text = "";
         while (true){
             if(currentRetryCnt > maxRetryCount){
-//                ExtentTestUtility.getExtentTest().fail("Unable to perform get text operation on element- "+element);
                 ExtentLog.log(Status.FAIL, "Unable to perform get text operation on element- "+element);
                 throw new RuntimeException("Unable to perform get text operation on element- "+element);
             }
             try {
                 text = wait.until(ExpectedConditions.presenceOfElementLocated(element)).getText();
-//                ExtentTestUtility.getExtentTest().pass("Fetched '"+text+"' from element- "+element);
                 ExtentLog.log(Status.PASS, "Fetched '"+text+"' from element- "+element);
                 break;
             } catch (Exception e){
@@ -106,7 +102,7 @@ public class WebActions {
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
     }
 
-    public List<WebElement> validateList(By elements){
+    public List<WebElement> getWebElementsList(By elements){
         int currentRetryCnt = 0;
         while(true){
             if(currentRetryCnt>maxRetryCount){
@@ -130,14 +126,13 @@ public class WebActions {
         int currentRetryCnt = 0;
         while (true){
             if(currentRetryCnt > maxRetryCount){
-//                ExtentTestUtility.getExtentTest().fail("Failed entering text '"+text+"' in the element- "+element);
                 ExtentLog.log(Status.FAIL, "Failed selecting value in the element- "+element);
                 throw new RuntimeException("Unable to perform select operation on the element- "+element);
             }
             try {
                 new Select(wait.until(ExpectedConditions.presenceOfElementLocated(element))).selectByValue(value);
                 ExtentLog.log(Status.PASS, "Selected value: " +value + " in the drop down- " +element);
-                break;
+               break;
             } catch (Exception e){
                 currentRetryCnt ++;
             }
@@ -148,7 +143,6 @@ public class WebActions {
         int currentRetryCnt = 0;
         while (true){
             if(currentRetryCnt > maxRetryCount){
-//                ExtentTestUtility.getExtentTest().fail("Failed entering text '"+text+"' in the element- "+element);
                 ExtentLog.log(Status.FAIL, "Failed selecting value in the element- "+element);
                 throw new RuntimeException("Unable to perform select operation on the element- "+element);
             }

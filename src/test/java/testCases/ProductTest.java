@@ -10,8 +10,7 @@ import pages.ProductsPage;
 import utilities.BrowserFactory;
 import utilities.ExtentLog;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ProductTest extends TestPrime{
 
@@ -37,10 +36,10 @@ public class ProductTest extends TestPrime{
         lp.login(data.get("Username"), data.get("Password"));
         ExtentLog.log(Status.INFO,"Trying to validate that all the products are set with a price tag");
         ProductsPage pp = new ProductsPage(BrowserFactory.getDriver());
-        List< WebElement> l = pp.validatePriceList();
+        List<WebElement> l = pp.validatePriceList();
         SoftAssert st = new SoftAssert();
         for (WebElement e:l){
-            st.assertFalse(e.getText().contains(data.get("PriceTag")));
+            st.assertTrue(e.getText().contains(data.get("PriceTag")));
         }
         st.assertAll();
         //Assert.assertEquals(pp.validatePriceList().contains(data.get("PriceTag")),data.get("PriceTag"));
@@ -52,8 +51,33 @@ public class ProductTest extends TestPrime{
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
         ExtentLog.log(Status.INFO,"Trying to login");
         lp.login(data.get("Username"), data.get("Password"));
-        ExtentLog.log(Status.INFO,"Trying to click on sort");
         ProductsPage pp = new ProductsPage(BrowserFactory.getDriver());
-        pp.sortClick();
+        ExtentLog.log(Status.INFO, "Trying to fetch the existing list of items");
+        List<String> l2 = pp.getItemNamesList();
+        ExtentLog.log(Status.INFO,"Trying to click on sort by name in ascending");
+        List<String> l = pp.sortAscend();
+        ExtentLog.log(Status.INFO,"Trying to compare if before and after item list are the same");
+        Assert.assertTrue(l.equals(l2));
+
+    }
+
+    @Test(dataProvider = "myData")
+    public void TC_010(Map <String, String> data){
+        ExtentLog.log(Status.INFO, data.toString());
+        LoginPage lp = new LoginPage(BrowserFactory.getDriver());
+        ExtentLog.log(Status.INFO,"Trying to login");
+        lp.login(data.get("Username"), data.get("Password"));
+        ProductsPage pp = new ProductsPage(BrowserFactory.getDriver());
+        ExtentLog.log(Status.INFO, "Trying to fetch the existing list of items in descending order");
+        List<String> li = pp.getItemNamesList();
+        System.out.println("Before Descending" +li);
+        Collections.sort(li, Collections.reverseOrder());
+        System.out.println("After Descending" +li);
+        ExtentLog.log(Status.INFO,"Trying to click on sort by name in descending");
+        List<String> sort = pp.sortDescend();
+        System.out.println("After sorting in page - Descending" +sort);
+        ExtentLog.log(Status.INFO,"Trying to compare if before and after item list are the same");
+        Assert.assertTrue(li.equals(sort));
+       // Assert.assertEquals(Objects.equals(pp.sortDescend(), Collections.sort(pp.validateItemList(), Collections.reverseOrder()))); //how to compare here?
     }
 }
