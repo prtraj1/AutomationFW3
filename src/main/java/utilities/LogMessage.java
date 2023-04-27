@@ -5,10 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 public class LogMessage {
 
-    private static Logger log = LogManager.getLogger(LogMessage.class);
+    private static Logger log = LogManager.getLogger();
 
     public static void info(String message){
-        log.info(message);
+        log.info(Thread.currentThread().getStackTrace()[2].getClassName()+ " | "+ message);
     }
 
     public static void warn(String message){

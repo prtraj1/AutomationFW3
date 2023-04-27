@@ -46,6 +46,7 @@ public class TestPrime {
     @BeforeMethod
     public void setUp(Method m){
         ExtentLog.log(Status.INFO, "Starting test-"+m.getName());
+        LogMessage.info("Starting test-"+m.getName());
 //        extentTest = extentReports.createTest(m.getName());
         //Sets ExtentTest object into a thread using ExtentTestUtility
         //We are sending a car of company ExtentTest and on the driver seat putting test method's name

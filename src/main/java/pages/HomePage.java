@@ -26,6 +26,6 @@ public class HomePage {
          act.doClick(openMenu);
     }
     public void logout(){
-        act.doClick(logout);
+        act.doJSClick(logout);
     }
 }

@@ -4,6 +4,7 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.devtools.idealized.Javascript;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -149,6 +150,26 @@ public class WebActions {
             try {
                 new Select(wait.until(ExpectedConditions.presenceOfElementLocated(element))).selectByVisibleText(value);
                 ExtentLog.log(Status.PASS, "Selected value: " +value + " in the drop down- " +element);
+                break;
+            } catch (Exception e){
+                currentRetryCnt ++;
+            }
+        }
+    }
+
+    public void doJSClick(By element){ //Explain this line
+        int currentRetryCnt = 0;
+        while (true){
+            if(currentRetryCnt > maxRetryCount){
+//                ExtentTestUtility.getExtentTest().fail("Unable to perform click operation on element- "+element);
+                ExtentLog.log(Status.FAIL, "Unable to perform click operation on element- "+element);
+                throw new RuntimeException("Unable to perform click operation on element- "+element);
+            }
+            try {
+                wait.until(ExpectedConditions.presenceOfElementLocated(element));
+                ((JavascriptExecutor)driver).executeScript("arguments[0].click();", driver.findElement(element));
+//                ExtentTestUtility.getExtentTest().pass("Clicked element- "+element);
+                ExtentLog.log(Status.PASS, "Clicked element- "+element);
                 break;
             } catch (Exception e){
                 currentRetryCnt ++;
