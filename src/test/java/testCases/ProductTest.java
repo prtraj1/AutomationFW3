@@ -36,7 +36,7 @@ public class ProductTest extends TestPrime{
         lp.login(data.get("Username"), data.get("Password"));
         ExtentLog.log(Status.INFO,"Trying to validate that all the products are set with a price tag");
         ProductsPage pp = new ProductsPage(BrowserFactory.getDriver());
-        List<WebElement> l = pp.validatePriceList();
+        List<WebElement> l = pp.getWebElements();
         SoftAssert st = new SoftAssert();
         for (WebElement e:l){
             st.assertTrue(e.getText().contains(data.get("PriceTag")));
@@ -55,7 +55,7 @@ public class ProductTest extends TestPrime{
         ExtentLog.log(Status.INFO, "Trying to fetch the existing list of items");
         List<String> l2 = pp.getItemNamesList();
         ExtentLog.log(Status.INFO,"Trying to click on sort by name in ascending");
-        List<String> l = pp.sortAscend();
+        List<String> l = pp.sortAscendName();
         ExtentLog.log(Status.INFO,"Trying to compare if before and after item list are the same");
         Assert.assertTrue(l.equals(l2));
 
@@ -74,10 +74,37 @@ public class ProductTest extends TestPrime{
         Collections.sort(li, Collections.reverseOrder());
         System.out.println("After Descending" +li);
         ExtentLog.log(Status.INFO,"Trying to click on sort by name in descending");
-        List<String> sort = pp.sortDescend();
+        List<String> sort = pp.sortDescendName();
         System.out.println("After sorting in page - Descending" +sort);
         ExtentLog.log(Status.INFO,"Trying to compare if before and after item list are the same");
         Assert.assertTrue(li.equals(sort));
-       // Assert.assertEquals(Objects.equals(pp.sortDescend(), Collections.sort(pp.validateItemList(), Collections.reverseOrder()))); //how to compare here?
+    }
+
+    @Test(dataProvider = "myData") //to check
+    public void TC_011(Map <String, String> data){
+        ExtentLog.log(Status.INFO, data.toString());
+        LoginPage lp = new LoginPage(BrowserFactory.getDriver());
+        ExtentLog.log(Status.INFO,"Trying to login");
+        lp.login(data.get("Username"), data.get("Password"));
+        ProductsPage pp = new ProductsPage(BrowserFactory.getDriver());
+        ExtentLog.log(Status.INFO, "Trying to fetch the existing list price");
+        List<WebElement> elm= pp.getWebElements();
+        List<Float> fl = new LinkedList<>();
+        for (int i=0; i< elm.size(); i++){
+        String amount = elm.get(i).getText();
+        float amt = Float.parseFloat(amount.replaceAll("[^0-9.]", ""));
+        fl.add(amt);
+        }
+        System.out.println("Existing list of prices " +fl);
+        Collections.sort(fl);
+        System.out.println("Sorting existing Printing list from low to high price" +fl);
+        ExtentLog.log(Status.INFO,"Trying to click on price Low to high");
+         List<String> sort = pp.lowToHighPrice();
+         List<Float> fl2 = new LinkedList<>();
+         sort.forEach(e->fl2.add(Float.parseFloat(e.replaceAll("[^0-9.]", ""))));
+         System.out.println("After sorting prices from low to high " +fl2);
+//        ExtentLog.log(Status.INFO,"Trying to compare if before and after price list are the same");
+        Assert.assertEquals(fl2, fl);
+
     }
 }
