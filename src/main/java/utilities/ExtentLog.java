@@ -9,9 +9,11 @@ import java.util.List;
 public class ExtentLog {
 
     public static void log(Status status, String message){
+        LogMessage.info(message);
 
         if(ExtentTestUtility.getExtentTest() == null){
-            System.out.println("Can not log message in the report at the moment! Message- "+message);
+//            LogMessage.info("Can not log message in the report at the moment! Message- "+message);
+//            System.out.println("Can not log message in the report at the moment! Message- "+message);
             return;
         }
 
