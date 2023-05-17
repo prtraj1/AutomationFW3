@@ -1,7 +1,10 @@
 package testCases;
 
 import com.aventstack.extentreports.Status;
+import dataHandling.FetchTestData;
+import listener.MyTestNGListener;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.LoginPage;
@@ -10,9 +13,10 @@ import utilities.ExtentLog;
 
 import java.util.Map;
 
-public class CartTest extends TestPrime{
+@Listeners({MyTestNGListener.class})
+public class CartTest{
 
-    @Test(dataProvider = "myData")
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_013(Map<String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -28,7 +32,7 @@ public class CartTest extends TestPrime{
         Assert.assertEquals(data.get("ItemName"),cp.getItemFromCart());
 
 }
-    @Test(dataProvider = "myData")
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_014(Map<String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -42,7 +46,7 @@ public class CartTest extends TestPrime{
         Assert.assertEquals(cp.getItemFromProduct(),data.get("ItemName"));
     }
 
-    @Test(dataProvider = "myData")
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_015(Map<String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
