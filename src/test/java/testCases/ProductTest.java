@@ -1,8 +1,11 @@
 package testCases;
 
 import com.aventstack.extentreports.Status;
+import dataHandling.FetchTestData;
+import listener.MyTestNGListener;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
@@ -12,9 +15,10 @@ import utilities.ExtentLog;
 
 import java.util.*;
 
-public class ProductTest extends TestPrime{
+@Listeners({MyTestNGListener.class})
+public class ProductTest {
 
-    @Test(dataProvider = "myData")
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_007(Map <String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -28,7 +32,7 @@ public class ProductTest extends TestPrime{
 
     }
 
-    @Test(dataProvider = "myData")
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_008(Map <String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -45,7 +49,7 @@ public class ProductTest extends TestPrime{
         //Assert.assertEquals(pp.validatePriceList().contains(data.get("PriceTag")),data.get("PriceTag"));
     }
 
-    @Test(dataProvider = "myData")
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_009(Map <String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -61,7 +65,7 @@ public class ProductTest extends TestPrime{
 
     }
 
-    @Test(dataProvider = "myData")
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_010(Map <String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -80,7 +84,7 @@ public class ProductTest extends TestPrime{
         Assert.assertTrue(li.equals(sort));
     }
 
-    @Test(dataProvider = "myData") //to check
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class) //to check
     public void TC_011(Map <String, String> data) {
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -107,7 +111,7 @@ public class ProductTest extends TestPrime{
         Assert.assertEquals(fl2, fl);
     }
 
-        @Test(dataProvider = "myData")
+        @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
         public void TC_012(Map <String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
