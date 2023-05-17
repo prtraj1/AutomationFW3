@@ -82,4 +82,14 @@ public class ProductsPage {
         }
         return priceList;
     }
+
+    public List<String> HighToLowPrice(){
+      act.selectByValue(filterButton, "hilo");
+      List<WebElement> elm = act.getWebElementsList(priceTagList);
+      List<String> priceList = new LinkedList<>();
+      for(WebElement wb:elm){
+          priceList.add(wb.getText());
+      }
+      return priceList;
+    }
 }

@@ -4,10 +4,10 @@ Verify logout functionality (TC_006)
 Validate add to cart button visible in all products (TC_007)
 Validate all products have been set with a price tag (TC_008)
 Verify filter functionality by name ascending (TC_009)
-Verify filter functionality by price ascending
+Verify filter functionality by price ascending (TC_011)
 Verify filter functionality by name descending (TC_010)
-Verify filter functionality by price descending
-Verify add to cart functionality
+Verify filter functionality by price descending (TC_012)
+Verify add to cart functionality (TC_013)
 Verify remove from cart functionality
-Verify product page opened
-Verify product purchase functionality
+Verify product page opened (TC_014)
+Verify product purchase functionality (TC_015)
