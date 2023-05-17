@@ -81,30 +81,55 @@ public class ProductTest extends TestPrime{
     }
 
     @Test(dataProvider = "myData") //to check
-    public void TC_011(Map <String, String> data){
+    public void TC_011(Map <String, String> data) {
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
-        ExtentLog.log(Status.INFO,"Trying to login");
+        ExtentLog.log(Status.INFO, "Trying to login");
         lp.login(data.get("Username"), data.get("Password"));
         ProductsPage pp = new ProductsPage(BrowserFactory.getDriver());
         ExtentLog.log(Status.INFO, "Trying to fetch the existing list price");
-        List<WebElement> elm= pp.getWebElements();
+        List<WebElement> elm = pp.getWebElements();
         List<Float> fl = new LinkedList<>();
-        for (int i=0; i< elm.size(); i++){
-        String amount = elm.get(i).getText();
-        float amt = Float.parseFloat(amount.replaceAll("[^0-9.]", ""));
-        fl.add(amt);
+        for (int i = 0; i < elm.size(); i++) {
+            String amount = elm.get(i).getText();
+            float amt = Float.parseFloat(amount.replaceAll("[^0-9.]", ""));
+            fl.add(amt);
         }
-        System.out.println("Existing list of prices " +fl);
+        System.out.println("Existing list of prices " + fl);
         Collections.sort(fl);
-        System.out.println("Sorting existing Printing list from low to high price" +fl);
-        ExtentLog.log(Status.INFO,"Trying to click on price Low to high");
-         List<String> sort = pp.lowToHighPrice();
-         List<Float> fl2 = new LinkedList<>();
-         sort.forEach(e->fl2.add(Float.parseFloat(e.replaceAll("[^0-9.]", ""))));
-         System.out.println("After sorting prices from low to high " +fl2);
+        System.out.println("Sorting existing Printing list from low to high price" + fl);
+        ExtentLog.log(Status.INFO, "Trying to click on price Low to high");
+        List<String> sort = pp.lowToHighPrice();
+        List<Float> fl2 = new LinkedList<>();
+        sort.forEach(e -> fl2.add(Float.parseFloat(e.replaceAll("[^0-9.]", ""))));// to ask
+        System.out.println("After sorting prices from low to high " + fl2);
 //        ExtentLog.log(Status.INFO,"Trying to compare if before and after price list are the same");
         Assert.assertEquals(fl2, fl);
-
     }
+
+        @Test(dataProvider = "myData")
+        public void TC_012(Map <String, String> data){
+        ExtentLog.log(Status.INFO, data.toString());
+        LoginPage lp = new LoginPage(BrowserFactory.getDriver());
+        ExtentLog.log(Status.INFO, "Trying to login");
+        lp.login(data.get("Username"), data.get("Password"));
+        ProductsPage pp = new ProductsPage(BrowserFactory.getDriver());
+        ExtentLog.log(Status.INFO,"Trying to fetch the existing list price");
+        List<WebElement> elm = pp.getWebElements();
+        List<Float> fl = new LinkedList<>();
+        for (int i = 0; i<elm.size(); i++){
+            String amount = elm.get(i).getText();
+            float amt = Float.parseFloat(amount.replaceAll("[^0-9.]",""));
+            fl.add(amt);
+        }
+            System.out.println("Existing price list: " +fl);
+        Collections.sort(fl, Collections.reverseOrder());
+        ExtentLog.log(Status.INFO," Trying to click on Price high to Low");
+        List<String> hl = pp.HighToLowPrice();
+        List<Float> fl2 = new LinkedList<>();
+        hl.forEach(e -> fl2.add(Float.parseFloat(e.replaceAll("[^0-9.]",""))));
+            System.out.println("After sorting prices from high to Low " + fl2);
+        Assert.assertEquals(fl2,fl);
+        }
+
 }
