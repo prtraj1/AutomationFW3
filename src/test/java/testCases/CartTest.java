@@ -13,10 +13,10 @@ import utilities.ExtentLog;
 
 import java.util.Map;
 
-@Listeners({MyTestNGListener.class})
+//@Listeners({MyTestNGListener.class})
 public class CartTest{
 
-    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class, description = "Verify add to cart functionality")
     public void TC_013(Map<String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -46,7 +46,7 @@ public class CartTest{
         Assert.assertEquals(cp.getItemFromProduct(),data.get("ItemName"));
     }
 
-    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class, description = "Verify product purchase functionality")
     public void TC_015(Map<String, String> data){
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());

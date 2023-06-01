@@ -16,10 +16,10 @@ import utilities.WebActions;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Listeners({MyTestNGListener.class})
+//@Listeners({MyTestNGListener.class})
 public class LoginTest {
 
-    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class, description = "Login with valid credentials")
     public void TC_004(Map<String, String> data){
         ExtentLog.log(Status.INFO, data.toString()); //explain this line
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
@@ -29,17 +29,17 @@ public class LoginTest {
         ExtentLog.log(Status.INFO, "Trying to validate homepage title");
         HomePage hp = new HomePage(BrowserFactory.getDriver());
         String pageTitle = hp.getPageTitle();
-        Assert.assertNotEquals(pageTitle, data.get("PageTitle"));// there is no showcase whether this was true?
+        Assert.assertEquals(pageTitle, data.get("PageTitle"));// there is no showcase whether this was true?
     }
 
-    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
+    @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class, description = "Login with invalid credentials")
     public void TC_005(Map<String, String> data){
 //        ExtentTestUtility.getExtentTest().log(Status.INFO, data.toString());
         ExtentLog.log(Status.INFO, data.toString());
         LoginPage lp = new LoginPage(BrowserFactory.getDriver());
         ExtentLog.log(Status.INFO, "Trying to login");
         lp.login(data.get("Username"), data.get("Password"));
-        Assert.assertFalse(lp.validateErrorMsg(data.get("ErrorMsg")), "Error message is not displayed!");
+        Assert.assertTrue(lp.validateErrorMsg(data.get("ErrorMsg")), "Error message is not displayed!");
     }
     @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)
     public void TC_006(Map<String, String> data){

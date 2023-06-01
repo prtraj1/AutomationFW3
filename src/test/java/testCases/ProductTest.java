@@ -15,7 +15,7 @@ import utilities.ExtentLog;
 
 import java.util.*;
 
-@Listeners({MyTestNGListener.class})
+//@Listeners({MyTestNGListener.class})
 public class ProductTest {
 
     @Test(dataProvider = "myData", dataProviderClass = FetchTestData.class)

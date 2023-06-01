@@ -7,6 +7,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.*;
 import utilities.*;
@@ -36,10 +37,17 @@ public class MyTestNGListener implements ISuiteListener, ITestListener {
     public void onTestStart(ITestResult result) {
         ExtentLog.log(Status.INFO, "Starting test-"+result.getName());
         LogMessage.info("Starting test-"+result.getName());
-        ExtentTestUtility.setExtentTest(extentReports.createTest(result.getName()));
-        String browserName = GlobalProperties.getProperty("browser");
+        ExtentTestUtility.setExtentTest(extentReports.createTest(result.getName()+"_"+result.getMethod().getDescription()));
+//        String browserName = GlobalProperties.getProperty("browser");
+        String browserName = result.getTestContext().getCurrentXmlTest().getParameter("browser");
+        String suite = result.getTestContext().getCurrentXmlTest().getParameter("suite");
+        ExtentTestUtility.getExtentTest().assignCategory(browserName, suite);
         if(browserName.equalsIgnoreCase("firefox")) {
             BrowserFactory.setDriver(new FirefoxDriver());
+            driver = BrowserFactory.getDriver();
+        }
+        else if(browserName.equalsIgnoreCase("edge")) {
+            BrowserFactory.setDriver(new EdgeDriver());
             driver = BrowserFactory.getDriver();
         }
         else
