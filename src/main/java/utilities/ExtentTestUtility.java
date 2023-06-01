@@ -14,7 +14,7 @@ public class ExtentTestUtility {
 
     //Sends the ExtentTest object which was set previously using setExtentTest
     //Sends the information about the car on the thread/road
-    public static ExtentTest getExtentTest(){
+    public synchronized static ExtentTest getExtentTest(){
         return eTest.get();
     }
 

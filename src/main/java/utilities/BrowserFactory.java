@@ -10,7 +10,7 @@ public class BrowserFactory {
         wDriver.set(driver);
     }
 
-    public static WebDriver getDriver(){
+    public synchronized static WebDriver getDriver(){
         return wDriver.get();
     }
 }
